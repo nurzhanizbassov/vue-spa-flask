@@ -9,6 +9,7 @@ own web development project.
 The project was created thanks to these sources: 
 
 https://stackabuse.com/single-page-apps-with-vue-js-and-flask-setting-up-vue-js/
+
 https://codepen.io/roman-koptev/pen/OoGgBz
 
 Python: 3.6.9
