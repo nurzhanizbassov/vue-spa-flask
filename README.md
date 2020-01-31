@@ -1,17 +1,19 @@
-vue-spa-flask
+# vue-spa-flask
 
 ------------------------------------------------------------------------------
 
 The project consists of a backend written in Flask (Python3)
-and a frontend (VueJS, SPA). It is intended to ease starting your 
+and a frontend SPA (VueJS). It is intended to ease starting your 
 own web development project.
 
 The project was created thanks to these sources: 
 
-https://stackabuse.com/single-page-apps-with-vue-js-and-flask-setting-up-vue-js/
+[Single Page Apps with Vue.js and Flask: Setting up Vue.js](https://stackabuse.com/single-page-apps-with-vue-js-and-flask-setting-up-vue-js/)
 
-https://codepen.io/roman-koptev/pen/OoGgBz
+[Buefy template](https://codepen.io/roman-koptev/pen/OoGgBz)
 
+### Versions:
+```
 Python: 3.6.9
 Vue: 2.6.11
 Vuex: 3.1.2
@@ -20,35 +22,36 @@ Buefy: 0.8.9
 PostgreSQL: 12.1 
 redis: 1.2.0
 etc.
+```
 
 ------------------------------------------------------------------------------
 
-Frontend:
+## Frontend:
 
 1. Install nvm. See the official documentation on how to do that.
 
 2. Using nvm set the node version to 10.*:
 
-    nvm use node 10.*
+    `nvm use node 10.*`
 
     Note: if you update and then source the backend/scripts/activate_dev_env.sh script
     then required version of node will already be activated.
 
 3. cd into somewebapp/frontend and run:
 
-    npm install
+    `npm install`
 
 4. Run the frontend spa:
 
-    npm run dev
+    `npm run dev`
 
 ------------------------------------------------------------------------------
 
-Backend:
+## Backend:
 
 1. cd into backend and run the following:
 
-    . scripts/activate_dev_env.sh
+    `. scripts/activate_dev_env.sh`
 
     The script will:
 
@@ -68,21 +71,22 @@ Backend:
         in the backend/scripts/activate_dev_env.sh script
         for automatically openning up 4 other terminals:
       
-         1. For launching backend server:
+          - For launching backend server:
             
-                python appserver.py (virtualenv already activated)
+              python appserver.py (virtualenv already activated)
          
-         2. Running and showing output of redis.
-         3. For opening editor (vim in my case) inside of the frontend
+          - Running and showing output of redis.
+          - For opening editor (vim in my case) inside of the frontend
          directory with the required nodejs activated
-         4. Launching the frontend:
-            npm run dev (required nodejs already activated).
+          - Launching the frontend:
+      
+              npm run dev (required nodejs already activated)
          
-        Otherwise update the backend/scripts/activate_dev_env.sh script
-        for your desktop environment (Gnome, KDE etc) or 
-        open the terminals and run the required services manually.
+      Otherwise update the backend/scripts/activate_dev_env.sh script
+      for your desktop environment (Gnome, KDE etc) or 
+      open the terminals and run the required services manually.
 
-    Note:
+    **Note:**
 
     If you decide to run the services manually you need to run:
 
@@ -97,13 +101,13 @@ Backend:
 
         npm run dev
 
-2.   To deactivate virtualenv and stop the docker containers run:
+2. To deactivate virtualenv and stop the docker containers run:
 
         . scripts/deactivate_dev_env.sh
 
 3. To populate db run:
 
-    ./populate_db.sh
+        ./populate_db.sh
 
     Note: This script will drop the database somewebapp and user swa 
     and then recreate them again. Afterwars tables will be created
@@ -113,33 +117,34 @@ Backend:
 
 4. When you make changes to the models run migrations:
 
-    python manage.py db migrate
-    python manage.py db upgrade
+   `python manage.py db migrate`
+   
+   `python manage.py db upgrade`
 
 ------------------------------------------------------------------------------
 
-Testing:
+## Testing:
 
-    Backend:
-        1. All tests are located in the test directory.
-        2. In order to launch tests inside of the backend/test directory
-        having activated virtualenv and launched application server run:
+   ### Backend:
+   1. All tests are located in the test directory.
+   2. In order to launch tests inside of the backend/test directory
+      having activated virtualenv and launched application server run:
             
-            python -m unittest
+     python -m unittest
 
-    Frontend:
+   ### Frontend:
 
-        Unit tests:
+   Unit tests:
 
-            npm run unit 
+     npm run unit 
 
-            Note: Currently the only unit test fails because a key 'app_title" gets
-            returned instead of text 'Some Web App'.
+   Note: Currently the only unit test fails because a key 'app_title" gets
+         returned instead of text 'Some Web App'.
 
-        e2e tests:
+   e2e tests:
 
-            npm run e2e
+     npm run e2e
 
-        All tests:
+   All tests:
 
-            npm test
+     npm test
