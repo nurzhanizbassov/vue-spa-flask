@@ -7,7 +7,8 @@ venv/
 env/
 *.log
 tags*
-backend/migrations
+api/migrations
+api/migrations/*
 
 # Vuejs
 node_modules
@@ -29,8 +30,6 @@ dist/*
 *.sln
 *.sw?
 *.iml
-*.vim
-/.vim
 
 # IDE - VSCode
 .vscode/*
@@ -58,3 +57,7 @@ testem.log
 
 # vim settings
 .vim
+
+# Docker volumes
+db/postgresql
+db/postgresql-test

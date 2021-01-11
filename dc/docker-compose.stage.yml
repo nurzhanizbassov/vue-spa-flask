@@ -1,0 +1,102 @@
+version: "3.5"
+services:
+  someapp-db:
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+        # - POSTGRES_DB=someapp
+        # - POSTGRES_USER=someapp
+        # - POSTGRES_PASSWORD=someapp
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ../db/postgresql:/var/lib/postgresql/data
+      # - ../db/db-init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+    networks:
+      - someapp-network
+
+  someapp-test-db:
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+        # - POSTGRES_DB=someapp
+        # - POSTGRES_USER=someapp
+        # - POSTGRES_PASSWORD=someapp
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ../db/postgresql-test:/var/lib/postgresql/data
+      # - ../db/db-init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - 5433:5432
+    networks:
+      - someapp-network
+
+  someapp-api:
+    volumes:
+      - ../api:/api
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ../api/log:/log
+
+    ports:
+      - 5555:5000
+
+    build:
+      context: ../api
+      dockerfile: Dockerfile
+
+    environment:
+      - PYTHONUNBUFFERED=1
+
+    depends_on:
+      - someapp-db
+
+    networks:
+      - someapp-network
+
+  someapp-web:
+    volumes:
+      - ../web:/web
+      - /web/node_modules
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+
+    ports:
+      # For config with local hot reload
+      - 8088:8080
+
+    build:
+      context: ../web
+      dockerfile: Dockerfile
+    depends_on:
+      - someapp-api
+
+    networks:
+      - someapp-network
+
+  # # If you don't need pgadmin4, then comment this section out
+  # eokno-pgadmin:
+  #     container_name: eokno-pgadmin
+  #     image: dpage/pgadmin4
+  #     environment:
+  #       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@eokno.gov.kz}
+  #       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-postgres}
+  #     volumes:
+  #       #  - ../eokno-pgadmin:/root/.pgadmin
+  #       - ../eokno-pgadmin:/var/lib/pgadmin
+  #     ports:
+  #       - "${PGADMIN_PORT:-5050}:80"
+  #     networks:
+  #       default:
+  #         aliases:
+  #           - eokno-pgadmin
+  #     restart: "no"
+
+networks:
+  someapp-network:
+    driver: bridge

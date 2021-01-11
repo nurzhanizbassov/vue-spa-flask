@@ -1,0 +1,21 @@
+version: "3.5"
+services:
+
+  someapp-db:
+    container_name: someapp-db
+    image: postgres
+    restart: "no"
+
+  someapp-test-db:
+    container_name: someapp-test-db
+    image: postgres
+    restart: "no"
+
+  someapp-api:
+    container_name: someapp-api
+    restart: "no"
+
+
+  someapp-web:
+    container_name: someapp-web
+    restart: "no"
